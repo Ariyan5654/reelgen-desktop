@@ -1,0 +1,29 @@
+{
+  "name": "reelgen-desktop",
+  "version": "1.0.0",
+  "description": "Turn long videos into vertical shorts locally",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win"
+  },
+  "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "@ffprobe-installer/ffprobe": "^1.4.1",
+    "yt-dlp-exec": "^2.4.9"
+  },
+  "devDependencies": {
+    "electron": "^28.2.0",
+    "electron-builder": "^24.9.0"
+  },
+  "build": {
+    "appId": "com.reelgen.desktop",
+    "productName": "ReelGen",
+    "win": {
+      "target": "portable"
+    },
+    "directories": {
+      "output": "dist"
+    }
+  }
+}
