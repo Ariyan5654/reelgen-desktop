@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReelGen Desktop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: { extend: { colors: { brand: { 500: '#8b5cf6', 600: '#7c3aed' } } } }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans flex flex-col justify-between">
+
+    <header class="border-b border-slate-800 bg-slate-900/50 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-pink-500 flex items-center justify-center text-white text-xl font-bold shadow-lg shadow-brand-500/30">
+                    <i class="fa-solid fa-scissors"></i>
+                </div>
+                <span class="text-xl font-extrabold tracking-tight text-white">ReelGen Desktop</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-10 flex-grow w-full">
+        <div class="text-center max-w-2xl mx-auto mb-8">
+            <h1 class="text-4xl font-black tracking-tight mb-2 text-white">
+                Turn Long Videos into Shorts
+            </h1>
+            <p class="text-slate-400">Processes locally on your computer. Zero server upload limits!</p>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl mb-10">
+            <form id="reelForm" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-semibold text-slate-300 mb-2">Video Source</label>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <div class="relative flex-grow">
+                            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+                                <i class="fa-brands fa-youtube text-lg"></i>
+                            </div>
+                            <input type="url" id="video_url" 
+                                class="w-full pl-10 pr-4 py-3 bg-slate-950 border border-slate-800 rounded-xl focus:ring-2 focus:ring-brand-500 outline-none text-slate-200 placeholder-slate-600 transition"
+                                placeholder="Paste YouTube link...">
+                        </div>
+                        <span class="text-slate-500 flex items-center justify-center font-medium">OR</span>
+                        <label class="flex items-center justify-center px-5 py-3 bg-slate-950 border border-slate-800 rounded-xl cursor-pointer hover:bg-slate-800/50 transition text-slate-300 text-sm font-semibold">
+                            <i class="fa-solid fa-file-video mr-2 text-brand-500"></i> Choose File
+                            <input type="file" id="video_file" accept="video/*" class="hidden">
+                        </label>
+                    </div>
+                    <p id="file-name" class="text-xs text-brand-500 mt-2 hidden"></p>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Target Clip Length</label>
+                    <select id="clip_duration" class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl focus:ring-2 focus:ring-brand-500 outline-none text-slate-300">
+                        <option value="10-15" selected>10 - 15 Seconds (Ultra Short)</option>
+                        <option value="15-30">15 - 30 Seconds (Fast Short)</option>
+                        <option value="30-60">30 - 60 Seconds (Standard Short)</option>
+                    </select>
+                </div>
+
+                <button type="submit" id="submitBtn" class="w-full py-4 bg-gradient-to-r from-brand-600 to-pink-600 hover:from-brand-500 hover:to-pink-500 text-white font-bold rounded-xl shadow-lg shadow-brand-500/25 transition flex items-center justify-center text-lg">
+                    <i class="fa-solid fa-wand-magic-sparkles mr-2"></i> Generate Shorts
+                </button>
+            </form>
+        </div>
+
+        <div id="progressSection" class="hidden bg-slate-900 border border-slate-800 rounded-2xl p-8 mb-10 text-center">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-500/10 text-brand-500 text-2xl mb-4">
+                <i class="fa-solid fa-gear animate-spin"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2 text-white">Rendering Video Clips...</h3>
+            <p class="text-slate-400 text-sm">Please wait while your CPU renders the high-quality clips.</p>
+        </div>
+
+        <div id="resultsSection" class="hidden space-y-6">
+            <h2 class="text-2xl font-bold text-white flex items-center border-b border-slate-800 pb-4">
+                <i class="fa-solid fa-bolt text-yellow-400 mr-2"></i> Generated Clips
+            </h2>
+            <div id="clipsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+        </div>
+
+    </main>
+
+    <script src="renderer.js"></script>
+</body>
+</html>
